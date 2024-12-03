@@ -9,3 +9,5 @@ networkx
 matplotlib
 paramiko
 pygame
+torch
+torch_geometric

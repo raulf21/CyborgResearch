@@ -15,7 +15,7 @@ class DroneGNN(nn.Module):
         hidden_dim(int): Dimension of hidden layers default is 64
     
     """
-    def __init__(self, input_dim=3, hidden_dim=64):
+    def __init__(self, input_dim=5, hidden_dim=64):
         super(DroneGNN, self).__init__()
         self.conv1 = GCNConv(input_dim, hidden_dim)
         self.conv2 = GCNConv(hidden_dim, hidden_dim)

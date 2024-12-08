@@ -23,7 +23,7 @@ class PPONetwork(nn.Module):
         self.num_drones = num_drones
         
         # GNN for processing drone network structure
-        self.gnn = DroneGNN(input_dim=3)  # 3 features per node from observation space
+        self.gnn = DroneGNN(input_dim=5)  # 5 features per node from observation space
         
          # Actor network: outputs action probabilities
         self.actor = nn.Sequential(
@@ -69,8 +69,12 @@ class PPONetwork(nn.Module):
             
             # Get network events (index n+2+i)
             network_events = float(state[self.num_drones + 2 + i])
+
+            one_hot_network_events = [0.0, 0.0, 0.0]
             
-            node_features.append([blocked_status, malicious_process, network_events])
+            one_hot_network_events[int(network_events)] = 1.0
+            
+            node_features.append([blocked_status, malicious_process] + one_hot_network_events)
         
         # Create edges based on drone positions and 30-unit communication range
         for i in range(self.num_drones):
